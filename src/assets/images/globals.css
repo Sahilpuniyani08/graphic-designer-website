@@ -1,0 +1,269 @@
+@import "tailwindcss";
+
+:root {
+   /* ==========================================================================
+     COLOR TOKENS (Extracted from reference)
+     ========================================================================== */
+   /* Surfaces & Canvas */
+   /* --background: #FFFFF0; */
+   --background: #FDFBF7;
+   --light-background: #FCFCFC;
+   --surface: #E4E3DD;
+   --surface-muted: #c9c8c5;
+   --surface-dark: #2f2e33;
+   --surface-dark-hover: #1e1d21;
+
+   /* Typography Colors */
+   --foreground: #1a1b1e;
+   --foreground-muted: #272626;
+   --foreground-subtle: #6e6e68;
+   --foreground-inverse: #ffffff;
+
+   /* Brand Accents from Reference Headline */
+   --accent-lime: #FFCB41;
+   --accent-lime-hover: #efbf3b;
+   --accent-violet: #6355de;
+   --accent-violet-hover: #5244cc;
+   --accent-wine: #8f2342;
+   --accent-wine-muted: #fbf0f3;
+   --accent-red: #F32317;
+   --accent-red-dark: #c2231b;
+   --accent-blue: #0035D4;
+   --accent-lightblue: #84DEF9;
+   --accent-pink: #FF8FCA;
+
+   /* Swatch Colors from Reference Portfolio Cards */
+   --swatch-putty: #b7b6ac;
+   --swatch-wine: #982845;
+   --swatch-purple: #792686;
+   --swatch-emerald: #23946e;
+   --swatch-ocean: #2e6997;
+   --swatch-ochre: #7e722c;
+   --swatch-coral: #d05d50;
+   --swatch-electric: #5c25c8;
+
+   /* Grey Palette Specification */
+   --grey-light: #fefefc;
+   --grey-light-hover: #fdfdfb;
+   --grey-light-active: #fcfbf7;
+   --grey-normal: #f4f2e5;
+   --grey-normal-hover: #dcdace;
+   --grey-normal-active: #c3c2b7;
+   --grey-dark: #b7b6ac;
+   --grey-dark-hover: #929189;
+   --grey-dark-active: #6e6d67;
+
+   /* Semantic State Colors */
+   --border: #e4e7ec;
+   --border-subtle: #f0f2f5;
+   --border-accent: #6355de;
+   --ring: #6355de;
+
+   /* Ambient Glows */
+   --glow-violet: rgba(99, 85, 222, 0.08);
+   --glow-lime: rgba(204, 216, 40, 0.06);
+
+   /* Button & Neumorphic Shadows */
+   --shadow-button-dark: 0 8px 20px -4px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.18), inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+   --shadow-button-outline: 0 4px 14px -2px rgba(99, 85, 222, 0.16), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+   --shadow-menu-box: 0 4px 14px -2px rgba(16, 24, 40, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+
+   /* ==========================================================================
+     TYPOGRAPHY SCALE (Fluid clamp() values)
+     ========================================================================== */
+   --font-size-display: clamp(2.75rem, 5.5vw + 1rem, 5.25rem);
+   --font-size-h1: clamp(2.25rem, 4.2vw + 0.8rem, 3.75rem);
+   --font-size-h2: clamp(1.75rem, 2.8vw + 0.6rem, 2.75rem);
+   --font-size-h3: clamp(1.375rem, 1.8vw + 0.5rem, 2rem);
+   --font-size-h4: clamp(1.125rem, 1.2vw + 0.4rem, 1.5rem);
+   --font-size-h5: clamp(1rem, 0.8vw + 0.4rem, 1.25rem);
+   --font-size-h6: clamp(0.875rem, 0.5vw + 0.35rem, 1rem);
+   --font-size-body-lg: clamp(1.125rem, 0.8vw + 0.4rem, 1.25rem);
+   --font-size-body: 1rem;
+   --font-size-small: 0.875rem;
+   --font-size-caption: 0.75rem;
+
+   --line-height-none: 1;
+   --line-height-tight: 1.15;
+   --line-height-snug: 1.3;
+   --line-height-normal: 1.5;
+   --line-height-relaxed: 1.65;
+
+   --letter-spacing-tighter: -0.03em;
+   --letter-spacing-tight: -0.015em;
+   --letter-spacing-normal: 0;
+   --letter-spacing-wide: 0.02em;
+
+   /* ==========================================================================
+     SPACING RHYTHM & CONTAINERS
+     ========================================================================== */
+   --container-sm: 640px;
+   --container-md: 768px;
+   --container-lg: 1024px;
+   --container-xl: 1200px;
+   --container-2xl: 1360px;
+
+   --section-py-sm: 3rem;
+   --section-py-md: 5rem;
+   --section-py-lg: 7.5rem;
+
+   /* ==========================================================================
+     BORDER RADIUS
+     ========================================================================== */
+   --radius-xs: 4px;
+   --radius-sm: 8px;
+   --radius-md: 12px;
+   --radius-lg: 16px;
+   --radius-xl: 20px;
+   --radius-2xl: 24px;
+   --radius-full: 9999px;
+
+   /* ==========================================================================
+     BOX SHADOWS
+     ========================================================================== */
+   --shadow-subtle: 0 1px 3px rgba(16, 24, 40, 0.05), 0 1px 2px rgba(16, 24, 40, 0.03);
+   --shadow-card: 0 12px 32px -4px rgba(16, 24, 40, 0.08), 0 4px 12px -2px rgba(16, 24, 40, 0.04);
+   --shadow-card-elevated: 0 20px 48px -6px rgba(16, 24, 40, 0.12), 0 8px 20px -4px rgba(16, 24, 40, 0.06);
+   --shadow-pill: 0 2px 6px rgba(16, 24, 40, 0.06);
+
+   /* ==========================================================================
+     Z-INDEX SYSTEM
+     ========================================================================== */
+   --z-negative: -1;
+   --z-base: 0;
+   --z-elevate: 1;
+   --z-dropdown: 10;
+   --z-sticky: 20;
+   --z-header: 30;
+   --z-modal: 40;
+   --z-toast: 50;
+
+   /* ==========================================================================
+     MOTION & EASING
+     ========================================================================== */
+   --duration-fast: 150ms;
+   --duration-normal: 300ms;
+   --duration-slow: 500ms;
+   --duration-slower: 800ms;
+
+   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ==========================================================================
+   TAILWIND V4 INLINE THEME MAPPING
+   ========================================================================== */
+@theme inline {
+   --font-heading: var(--font-libreBaskerville), ui-sans-serif, system-ui, sans-serif;
+   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+   --font-manrope: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+   /* Colors */
+   --color-background: var(--background);
+   --color-light-background: var(--light-background);
+   --color-surface: var(--surface);
+   --color-surface-muted: var(--surface-muted);
+   --color-surface-dark: var(--surface-dark);
+   --color-surface-dark-hover: var(--surface-dark-hover);
+
+   --color-foreground: var(--foreground);
+   --color-foreground-muted: var(--foreground-muted);
+   --color-foreground-subtle: var(--foreground-subtle);
+   --color-foreground-inverse: var(--foreground-inverse);
+
+   --color-accent-lime: var(--accent-lime);
+   --color-accent-lime-hover: var(--accent-lime-hover);
+   --color-accent-violet: var(--accent-violet);
+   --color-accent-violet-hover: var(--accent-violet-hover);
+   --color-accent-wine: var(--accent-wine);
+   --color-accent-wine-muted: var(--accent-wine-muted);
+   --color-accent-red: var(--accent-red);
+   --color-accent-red-dark: var(--accent-red-dark);
+   --color-accent-blue: var(--accent-blue);
+   --color-accent-lightblue: var(--accent-lightblue);
+   --color-accent-pink: var(--accent-pink);
+
+   --color-swatch-putty: var(--swatch-putty);
+   --color-swatch-wine: var(--swatch-wine);
+   --color-swatch-purple: var(--swatch-purple);
+   --color-swatch-emerald: var(--swatch-emerald);
+   --color-swatch-ocean: var(--swatch-ocean);
+   --color-swatch-ochre: var(--swatch-ochre);
+   --color-swatch-coral: var(--swatch-coral);
+   --color-swatch-electric: var(--swatch-electric);
+
+   --color-grey-light: var(--grey-light);
+   --color-grey-light-hover: var(--grey-light-hover);
+   --color-grey-light-active: var(--grey-light-active);
+   --color-grey-normal: var(--grey-normal);
+   --color-grey-normal-hover: var(--grey-normal-hover);
+   --color-grey-normal-active: var(--grey-normal-active);
+   --color-grey-dark: var(--grey-dark);
+   --color-grey-dark-hover: var(--grey-dark-hover);
+   --color-grey-dark-active: var(--grey-dark-active);
+
+   --color-border: var(--border);
+   --color-border-subtle: var(--border-subtle);
+   --color-border-accent: var(--border-accent);
+   --color-ring: var(--ring);
+
+   /* Radius */
+   --radius-xs: var(--radius-xs);
+   --radius-sm: var(--radius-sm);
+   --radius-md: var(--radius-md);
+   --radius-lg: var(--radius-lg);
+   --radius-xl: var(--radius-xl);
+   --radius-2xl: var(--radius-2xl);
+   --radius-full: var(--radius-full);
+
+   /* Shadows */
+   --shadow-subtle: var(--shadow-subtle);
+   --shadow-card: var(--shadow-card);
+   --shadow-card-elevated: var(--shadow-card-elevated);
+   --shadow-pill: var(--shadow-pill);
+   --shadow-button-dark: var(--shadow-button-dark);
+   --shadow-button-outline: var(--shadow-button-outline);
+   --shadow-menu-box: var(--shadow-menu-box);
+}
+
+/* ==========================================================================
+   BASE RESETS & DEFAULTS
+   ========================================================================== */
+html {
+   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+   color: var(--foreground);
+   background-color: var(--background);
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+   min-height: 100vh;
+   position: relative;
+   overflow-x: hidden;
+}
+
+/* Accessible focus ring */
+*:focus-visible {
+   outline: 2px solid var(--ring);
+   outline-offset: 2px;
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+   html {
+      scroll-behavior: auto !important;
+   }
+
+   *,
+   *::before,
+   *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+   }
+}
