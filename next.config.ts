@@ -38,6 +38,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["@tabler/icons-react", "motion"],
   },
+  allowedDevOrigins: ['192.168.1.23'],
   async headers() {
     return [
       {

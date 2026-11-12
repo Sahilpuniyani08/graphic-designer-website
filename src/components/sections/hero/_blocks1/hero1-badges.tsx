@@ -76,7 +76,7 @@ function ShimmerBadge({ badge }: { badge: BadgeItem }) {
 
 export function Hero1Badges() {
   return (
-    <div aria-hidden="false" className="pointer-events-none absolute inset-0 z-30 overflow-hidden">
+    <div aria-hidden="false" className="pointer-events-none inset-0 z-30 overflow-hidden">
       {BADGES.map((badge) => (
         <ShimmerBadge key={badge.id} badge={badge} />
       ))}

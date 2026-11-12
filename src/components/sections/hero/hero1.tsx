@@ -16,7 +16,7 @@ export function Hero1() {
       as="section"
       padding="none"
       aria-label="Creative Showcase Hero"
-      className="relative flex h-[100dvh] min-h-[580px] sm:min-h-[640px] w-full flex-col items-center justify-center overflow-hidden bg-transparent select-none "
+      className="relative flex h-svh min-h-[580px] sm:min-h-[640px] w-full flex-col items-center justify-center overflow-hidden bg-transparent select-none "
     >
 
       <m.div
@@ -31,8 +31,6 @@ export function Hero1() {
           "[background-size:32px_32px] mask-radial-[50%_80%] mask-radial-from-25% mask-radial-at-center"
         )}
       />
-
-
 
       <m.div
         initial={{
@@ -50,27 +48,12 @@ export function Hero1() {
         className="z-10 absolute inset-0  bg-linear-to-r from-accent-orange/30  to-accent-lime/30 mask-radial-[50%_50%] mask-radial-from-55% mask-radial-at-top "
       // className="absolute -top-2  left-1/2 -translate-x-1/2  w-full h-[300px]  bg-gradient-to-b from-accent-orange/40 via-accent-lime/25 to-transparent blur-md pointer-events-none "
       />
-      {/* <div
-        aria-hidden="true"
-        className={cn(
-          "pointer-events-none absolute inset-0 z-10 [background-size:10px_10px]",
-          "[background-image:radial-gradient(circle_at_center,var(--accent-orange)_1px,transparent_1px)] opacity-[0.2] mask-radial-from-55% mask-radial-at-bottom mask-radial-[100%_80%] "
-        )}
-      /> */}
-      {/* 
 
-      {/* 
-        Top Heading: 
-        Enlarged Manrope headline with left-to-right progressive unblur & fill
-      */}
       <div className="absolute top-16 sm:top-20 md:top-24 left-0 right-0 z-20 flex flex-col items-center justify-center w-full px-4">
         <Hero1Heading />
       </div>
 
-      {/* 
-        Floating Badges:
-        Separated from cards stage, positioned across the hero canvas
-      */}
+
       <Hero1Badges />
 
       {/* 

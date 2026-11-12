@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { m, AnimatePresence } from "motion/react";
+import { m, AnimatePresence, type Variants } from "motion/react";
 import { IconSettings, IconX, IconArrowRight } from "@tabler/icons-react";
 import { BrandLogo1 } from "./brand-logo1";
 import { GradualBlur } from "../ui";
@@ -22,6 +22,51 @@ const MENU_ITEMS: NavMenuItem[] = [
   { label: "Reviews", href: "#testimonials", description: "Client stories & feedback" },
   { label: "Contact", href: "#contact", description: "WhatsApp & direct enquiry" },
 ];
+
+// Staggered menu list container animation
+const menuContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.12,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.04,
+      staggerDirection: -1,
+    },
+  },
+};
+
+// Cascading link item: arrives from top to bottom with progressive unblur
+const menuItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: -20,
+    filter: "blur(6px)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.45,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -12,
+    transition: {
+      duration: 0.18,
+      ease: "easeIn",
+    },
+  },
+};
 
 export function Navbar1() {
   const [isVisible, setIsVisible] = useState(true);
@@ -126,9 +171,7 @@ export function Navbar1() {
           {/* Left balance spacer so center logo is truly centered */}
           <div className="w-10 sm:w-12" aria-hidden="true" />
 
-
-
-          <GradualBlur className="-top-1 rotate-180  -z-10" />
+          <GradualBlur className="-top-1 rotate-180 -z-10" />
 
           {/* Center: Brand Logo */}
           <div className="flex items-center justify-center">
@@ -142,7 +185,7 @@ export function Navbar1() {
               onClick={toggleMenu}
               aria-label={isOpen ? "Close menu" : "Open settings and navigation menu"}
               aria-expanded={isOpen}
-              className="group relative flex size-10 sm:size-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-linear-to-b from-accent-orange/85 via-accent-orange to-accent-orange text-white border border-white/80 ring-2 ring-white/30 shadow-md shadow-black/20 transition-all duration-200 hover:scale-[1.05] active:scale-[0.95] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring select-none cursor-pointer"
+              className="group relative flex size-10 sm:size-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-linear-to-b from-accent-orange/85 via-accent-orange to-accent-orange text-white border border-white/80 ring-2 ring-white/30 shadow-md shadow-black/20 transition-all duration-200 hover:scale-[1.05] active:scale-[0.95] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring select-none cursor-pointer"
             >
               {/* 3-streak reversible shimmer effect */}
               <div
@@ -180,30 +223,39 @@ export function Navbar1() {
         {isOpen && (
           <m.div
             data-lenis-prevent
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-background/85 backdrop-blur-2xl px-6 py-20 select-none"
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(24px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-background/85 px-6 py-20 select-none"
           >
             {/* Ambient Background Glow behind menu */}
-            <div
+            <m.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
               aria-hidden="true"
               className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[540px] h-[340px] sm:h-[540px] rounded-full bg-linear-to-r from-accent-orange/15 via-accent-lime/10 to-accent-blue/15 blur-[120px]"
             />
 
-            {/* Menu Links in the Middle */}
-            <div
+            {/* Menu Links with Staggered Cascading Animation from Top to Bottom */}
+            <m.div
               role="menu"
               aria-label="Navigation links"
+              variants={menuContainerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
               className="relative z-10 flex w-full max-w-lg flex-col items-stretch gap-2.5 sm:gap-3"
             >
               {MENU_ITEMS.map((item, idx) => {
                 const isHovered = hoveredIndex === idx;
 
                 return (
-                  <div
+                  <m.div
                     key={item.label}
+                    variants={menuItemVariants}
                     onMouseEnter={() => setHoveredIndex(idx)}
                     className="relative"
                   >
@@ -243,10 +295,10 @@ export function Navbar1() {
                         />
                       </div>
                     </a>
-                  </div>
+                  </m.div>
                 );
               })}
-            </div>
+            </m.div>
           </m.div>
         )}
       </AnimatePresence>
